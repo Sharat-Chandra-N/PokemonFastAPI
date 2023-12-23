@@ -15,6 +15,7 @@ class Pokemon(Base):
     )
     category_id = Column(ForeignKey("category.id", ondelete="CASCADE"), nullable=False)
     category = relationship("Category")
+    reviews = relationship("Review")
 
 
 class Owner(Base):
@@ -41,6 +42,9 @@ class Review(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(250))
     text = Column(String(350))
+    rating = Column(Integer)
+    pokemon_id = Column(Integer, ForeignKey("pokemon.id"))
+    pokemon = relationship("Pokemon", back_populates="reviews")
 
 
 class Reviewer(Base):
