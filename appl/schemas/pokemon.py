@@ -4,6 +4,15 @@ from typing import List
 from pydantic import BaseModel
 
 
+class PokemonReviewerResponse(BaseModel):
+    id: int
+    first_name: str
+    last_name: str
+
+    class Config:
+        from_attributes = True
+
+
 class PokemonCategoryResponse(BaseModel):
     id: int
     name: str
@@ -17,6 +26,7 @@ class PokemonReviewResponse(BaseModel):
     title: str
     text: str
     rating: int
+    reviewer: PokemonReviewerResponse
 
     class Config:
         from_attributes = True

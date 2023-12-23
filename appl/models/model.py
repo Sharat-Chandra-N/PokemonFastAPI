@@ -45,6 +45,8 @@ class Review(Base):
     rating = Column(Integer)
     pokemon_id = Column(Integer, ForeignKey("pokemon.id"))
     pokemon = relationship("Pokemon", back_populates="reviews")
+    reviewer_id = Column(ForeignKey("reviewer.id", ondelete="CASCADE"))
+    reviewer = relationship("Reviewer")
 
 
 class Reviewer(Base):
