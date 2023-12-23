@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 
-from .database import database
-from .models import model
+from .controllers import category, country, pokemon
 
 app = FastAPI(title="Pokemon Review System")
 
-# model.Base.metadata.create_all(bind=database.engine)
+app.include_router(category.router)
+app.include_router(country.router)
+app.include_router(pokemon.router)
 
 
 @app.get("/", tags=["Root"])
