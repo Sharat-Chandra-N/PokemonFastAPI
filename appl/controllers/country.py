@@ -30,6 +30,11 @@ def get_country_by_id(id: int = Form(...), db: Session = Depends(database.get_db
     return country
 
 
-@router.post("/owners", status_code=status.HTTP_200_OK)
+@router.post(
+    "/owners",
+    status_code=status.HTTP_200_OK,
+    response_model=List[country.CountryOwnerResponse],
+)
 def get_owners_by_country(id: int = Form(...), db: Session = Depends(database.get_db)):
-    return {"status": id}
+    owners = db.query(model.Owner).filter(model.Owner.country_id == id).all()
+    return owners

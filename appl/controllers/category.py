@@ -30,8 +30,13 @@ def get_category_by_id(id: int = Form(...), db: Session = Depends(database.get_d
     return category
 
 
-@router.post("/pokemon", status_code=status.HTTP_200_OK)
+@router.post(
+    "/pokemon",
+    status_code=status.HTTP_200_OK,
+    response_model=List[category.PokemonCategotyRespone],
+)
 def get_pokemons_by_category(
     id: int = Form(...), db: Session = Depends(database.get_db)
 ):
-    return {"status": id}
+    pokemons = db.query(model.Pokemon).filter(model.Pokemon.category_id == id).all()
+    return pokemons
