@@ -59,3 +59,4 @@ class Reviewer(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     first_name = Column(String(150))
     last_name = Column(String(150))
+    reviews = relationship("Review")
