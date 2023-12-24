@@ -14,15 +14,20 @@ class Pokemon(Base):
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
     )
     category_id = Column(ForeignKey("category.id", ondelete="CASCADE"), nullable=False)
+    owner_id = Column(ForeignKey("owner.id", ondelete="CASCADE"))
     category = relationship("Category")
     reviews = relationship("Review")
+    owner = relationship("Owner")
 
 
 class Owner(Base):
     __tablename__ = "owner"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(150))
+    first_name = Column(String(150))
+    last_name = Column(String(150))
     gym = Column(String(150))
+    country_id = Column(ForeignKey("country.id", ondelete="CASCADE"))
+    country = relationship("Country")
 
 
 class Country(Base):

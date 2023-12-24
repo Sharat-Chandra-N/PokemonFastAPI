@@ -34,4 +34,10 @@ def get_pokemon_by_id(id: int = Form(...), db: Session = Depends(database.get_db
 def get_ratings_of_pokemon_by_id(
     id: int = Form(...), db: Session = Depends(database.get_db)
 ):
-    return {"status": id}
+    pokemon_list = db.query(model.Review).filter(model.Review.pokemon_id == id).all()
+    if pokemon_list:
+        sumoflist = 0
+        for x in pokemon_list:
+            sumoflist = x.rating + sumoflist
+        return {"rating": round(sumoflist / len(pokemon_list), 2)}
+    return pokemon_list
